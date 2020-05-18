@@ -145,13 +145,11 @@ function loadCalendar() {
         var then;
         var date;
         if (item.start.date === undefined) {
-          // This doesn't handle dateTime or timeZone, but these calendar
-          // events are all just dates currently.
-          then = moment.tz(item.start.date, "YYYY-MM-DD", "America/Los_Angeles");
-          date = item.start.date;
-        } else {
           then = moment.tz(item.start.dateTime, "America/Los_Angeles").startOf("day");
           date = then.format("YYYY-MM-DD");
+        } else {
+          then = moment.tz(item.start.date, "YYYY-MM-DD", "America/Los_Angeles");
+          date = item.start.date;
         }
         console.log(date, item.summary);
         if (now.isBefore(then)) {
