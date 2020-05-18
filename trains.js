@@ -142,15 +142,23 @@ function loadCalendar() {
     for (var i=0; i < r.items.length; i++) {
       var item = r.items[i];
       if (item.summary.substr(0, 6) == "MERGE:") {
-        // This doesn't handle dateTime or timeZone, but these calendar
-        // events are all just dates currently.
-        var then = moment.tz(item.start.date, "YYYY-MM-DD", "America/Los_Angeles");
-        console.log(item.start.date, item.summary);
+        var then;
+        var date;
+        if (item.start.date === undefined) {
+          // This doesn't handle dateTime or timeZone, but these calendar
+          // events are all just dates currently.
+          then = moment.tz(item.start.date, "YYYY-MM-DD", "America/Los_Angeles");
+          date = item.start.date;
+        } else {
+          then = moment.tz(item.start.dateTime, "America/Los_Angeles").startOf("day");
+          date = then.format("YYYY-MM-DD");
+        }
+        console.log(date, item.summary);
         if (now.isBefore(then)) {
-          setNextUplift(r.items[i].start.date, r.items[i].htmlLink, then.fromNow());
+          setNextUplift(date, item.htmlLink, then.fromNow());
           break;
         } else if (now.isSame(then, "day")) {
-          setNextUplift(r.items[i].start.date, r.items[i].htmlLink, "TODAY!");
+          setNextUplift(date, item.htmlLink, "TODAY!");
           break;
         }
       }
