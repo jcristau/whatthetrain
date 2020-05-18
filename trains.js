@@ -145,7 +145,7 @@ function loadCalendar() {
         var then;
         var date;
         if (item.start.date === undefined) {
-          then = moment.utc(item.start.dateTime);
+          then = moment.tz(item.start.dateTime, "Europe/Paris");
           date = then.format("YYYY-MM-DD");
         } else {
           then = moment.tz(item.start.date, "YYYY-MM-DD", "America/Los_Angeles");
