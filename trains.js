@@ -158,7 +158,7 @@ function loadCalendar() {
 }
 
 function gapi_init() {
-   gapi.client.setApiKey("AIzaSyCfLN9nQUWw4_GM1BHAx2S-laAOvDwvMg4");
+   gapi.client.setApiKey("AIzaSyD5k5Q7IUnXBOKsRne_3YChVtYTU2k8RbY");
    gapi.client.load("calendar", "v3").then(loadCalendar);
 }
 document.addEventListener("DOMContentLoaded", init, false);
