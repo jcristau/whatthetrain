@@ -138,13 +138,14 @@ function loadCalendar() {
       console.warn('Got no Google calendar data!');
       return;
     }
+    console.log("found", r.items.length, "events");
     for (var i=0; i < r.items.length; i++) {
       var item = r.items[i];
       if (item.summary.substr(0, 6) == "MERGE:") {
         // This doesn't handle dateTime or timeZone, but these calendar
         // events are all just dates currently.
-        var then = moment.tz(r.items[i].start.date, "YYYY-MM-DD", "America/Los_Angeles");
-        console.log(r.items[i].start.date);
+        var then = moment.tz(item.start.date, "YYYY-MM-DD", "America/Los_Angeles");
+        console.log(item.start.date, item.summary);
         if (now.isBefore(then)) {
           setNextUplift(r.items[i].start.date, r.items[i].htmlLink, then.fromNow());
           break;
